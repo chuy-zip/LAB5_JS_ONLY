@@ -1,0 +1,79 @@
+<html>
+  <head>
+  </head>
+  <body>
+    <script type="application/javascript">
+
+        const cssInputName = `
+            .nameInput {
+                height: 30px;
+                width: 150px;
+                display: block;
+                margin-bottom: 10px;
+            }
+        `;
+
+        const cssInputMessage = `
+            .messageInput {
+                height: 40px;
+                width: 400px;
+                margin-bottom: 10px;
+            }
+        `;
+
+        const cssSendButton = `
+            .sendButton {
+                height: 40px;
+                width: 80px;
+            }
+        `;
+
+        let styleNameInput = document.createElement('style');
+        styleNameInput.textContent = cssInputName;
+
+        let stlyeMessageInput = document.createElement('style');
+        stlyeMessageInput.textContent = cssInputMessage;
+
+        let styleButtonSend = document.createElement('style');
+        styleButtonSend.textContent = cssSendButton;
+
+        document.head.appendChild(styleNameInput);
+        document.head.appendChild(stlyeMessageInput);
+        document.head.appendChild(styleButtonSend);
+
+        // Create input for user name
+        let userNameInput = document.createElement('input');
+        userNameInput.id = "name"
+        userNameInput.className = "nameInput";
+        userNameInput.type = "text";
+        userNameInput.value = "Write your user name";
+
+        // Create input for message
+        let messageInput = document.createElement('input');
+        messageInput.id = "message"
+        messageInput.className = "messageInput";
+        messageInput.type = "text";
+        messageInput.value = "Write your message";
+
+        let sendButton = document.createElement('button');
+        sendButton.onclick = sendData;
+        sendButton.className = "sendButton"
+        sendButton.textContent = "Send";
+        
+
+        // Get the body element to append inputs
+        let body = document.body;
+
+        // Append inputs to the body
+        body.appendChild(userNameInput);
+        body.appendChild(messageInput);
+        body.appendChild(sendButton);
+
+        function sendData() {
+            let name = document.getElementById('name').value;
+            let message = document.getElementById('message').value;
+            alert(`User Name: ${name} \nMessage:     ${message} `)
+        } 
+    </script>
+  </body>
+</html>
