@@ -252,21 +252,42 @@
             let name = document.getElementById('name').value.trim();
             let message = document.getElementById('message').value.trim();
             let messageLength = message.length;
-            if (name !== "" && message !== ""){
 
-                if(messageLength <= 140 ){
-                    alert(`User Name: ${name} \nMessage:     ${message} length: ${messageLength}`)
-                }
+            if (name !== "" && message !== "") {
+                if (messageLength <= 140) {
+                    
+                    const data = {
+                        username: name,
+                        message: message
+                    };
 
-                else{
-                    alert("Message length must be less than 140 characters")
+                    // Send POST request to the server
+                    fetch('https://chat.arpanetos.lol/messages', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify(data)
+                    })
+                    .then(response => {
+                        if (!response.ok) {
+                            alert("There was an error with the response!");
+                        }
+                        return response.json();
+                    })
+                    .then(data => {
+                        alert("Message sent!");
+                    })
+                    .catch(error => {
+                        alert("Could not send the message!");
+                    });
+                } else {
+                    alert("Message length must be less than 140 characters");
                 }
+            } else {
+                alert("Invalid operation, name and message can't be empty");
             }
-            else {
-                alert("Invalid operation, name and message can't be empty")
-            }
-            
-        } 
+        }
 
                 
         messageInput.addEventListener('keypress', function(event) {
