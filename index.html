@@ -50,10 +50,38 @@
                 justify-content: space-between;
                 height: 100px;
                 width: 100%;
-                position: sticky;
                 position: fixed;
                 top:0;
                 background-color: #92C7CF;
+            }
+        `;
+
+        const cssMessagesContainer = `
+            .messagesContainer {
+                display: flex;
+                flex-direction: column;
+                align-items: start;
+                width: 70%;
+                height: 72%;
+                margin:auto;
+                margin-top: 100px;
+                overflow-y: scroll;
+            }
+            .messagesContainer::-webkit-scrollbar {
+                display: none;
+}
+        `;
+
+        const cssMessageCard = `
+            .messageCard {
+                background-color: #E5E1DA;
+                color: black;
+                min-width: 10%;
+                max-width: 50%;
+                min-height: 25px;
+                margin-top: 40px;
+                border-radius: 10px;
+                padding: 10px;
             }
         `;
 
@@ -65,7 +93,6 @@
                 align-items: center;
                 height: 100px;
                 width: 70%;
-                position: sticky;
                 position:fixed;
                 bottom: 0;
                 background-color: #E5E1DA;
@@ -141,6 +168,12 @@
         let toggle = document.createElement('style');
         toggle.textContent = cssToggle;
 
+        let messagesContStyle = document.createElement('style');
+        messagesContStyle.textContent = cssMessagesContainer;
+
+        let messageCard = document.createElement('style');
+        messageCard.textContent = cssMessageCard;
+
         document.head.appendChild(h1Style);
         document.head.appendChild(styleNameInput);
         document.head.appendChild(stlyeMessageInput);
@@ -149,6 +182,8 @@
         document.head.appendChild(inputStyle);
         document.head.appendChild(bodyStile);
         document.head.appendChild(toggle);
+        document.head.appendChild(messagesContStyle);
+        document.head.appendChild(messageCard);
 
         let pageHeader = document.createElement('div');
         pageHeader.id = "header";
@@ -172,6 +207,9 @@
 
         let darkModeCheckbox = document.createElement('input');
         darkModeCheckbox.type = "checkbox";
+
+        let messagesContainer = document.createElement('div');
+        messagesContainer.className = "messagesContainer";
 
         // Create input for message
         let messageInput = document.createElement('input');
@@ -204,18 +242,25 @@
 
         darkModeContainer.appendChild(darkModeCheckbox);
 
+        body.appendChild(messagesContainer);
+
         inputContainer.appendChild(messageInput);
         inputContainer.appendChild(sendButton);
         body.appendChild(inputContainer);
-
-        // Create the toggle switch container
   
         function sendData() {
             let name = document.getElementById('name').value.trim();
             let message = document.getElementById('message').value.trim();
-
+            let messageLength = message.length;
             if (name !== "" && message !== ""){
-                alert(`User Name: ${name} \nMessage:     ${message} `)
+
+                if(messageLength <= 140 ){
+                    alert(`User Name: ${name} \nMessage:     ${message} length: ${messageLength}`)
+                }
+
+                else{
+                    alert("Message length must be less than 140 characters")
+                }
             }
             else {
                 alert("Invalid operation, name and message can't be empty")
@@ -268,6 +313,13 @@
             document.getElementById('sendMsg').style.borderColor = "#152642";
             document.body.classList.add('dark-mode');
             document.body.style.color = "#FBF9F1";
+
+            let msgCards = document.getElementsByClassName('messageCard');
+
+            Array.from(msgCards).forEach((card) => {
+                card.style.backgroundColor = "#506680";
+                card.style.color = "#FBF9F1";
+            });
         }
 
         function applyLightMode() {
@@ -282,7 +334,70 @@
             document.getElementById('sendMsg').style.borderColor = "#FBF9F1";
             document.body.classList.remove('dark-mode');
             document.body.style.color = "#636E72";
+
+            let msgCards = document.getElementsByClassName('messageCard');
+
+            Array.from(msgCards).forEach((card) => {
+                card.style.backgroundColor = "#E5E1DA";
+                card.style.color = "black";
+            });
         }   
+
+
+        let messages = [
+            {
+                "name": "John",
+                "message": "Hello there!"
+            },
+            {
+                "name": "Alice",
+                "message": "Hi, how are you?"
+            },
+            {
+                "name": "Bob",
+                "message": "I'm doing great, thanks!"
+            },
+            {
+                "name": "Bob32",
+                "message": "I'm doing great, thanks! This is a grea day for coding!"
+            },
+            {
+                "name": "Bob",
+                "message": "I'm doing great, thanks!"
+            },
+            {
+                "name": "John",
+                "message": "Hello there!"
+            }
+            ,
+            {
+                "name": "Bob32",
+                "message": "I'm doing great, thanks! This is a grea day for coding!"
+            },
+            {
+                "name": "Bob",
+                "message": "I'm doing great, thanks!"
+            },
+            {
+                "name": "John",
+                "message": "Hello there!"
+            }
+        ];
+
+        // mapping messages to cards
+        messages.map( (message) => {
+
+            let msgCard = document.createElement('div');
+            msgCard.className = "messageCard";
+            msgCard.textContent = `${message.name}: \n ${message.message}`
+            messagesContainer.appendChild(msgCard);
+            
+        });
+
+        
+
+
+
 
     </script>
   </body>
