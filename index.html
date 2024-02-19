@@ -6,27 +6,109 @@
 
         const cssInputName = `
             .nameInput {
+                position: relative;
                 height: 30px;
-                width: 150px;
-                display: block;
-                margin-bottom: 10px;
+                width: 10%;
+                margin-left: 20px;
+                background-color: #92C7CF;
+                color: #FBF9F1;
+                border-top: none; 
+                border-left: none;
+                border-right: none; 
+                border-bottom: 2px solid #FBF9F1;
+                text-align: left;
+            }
+            .nameInput::placeholder {
+                color: #FBF9F1;
+            }
+        `;
+
+        const cssToggle = ` 
+            .toggle {
+                position: relative;
+                display: flex;
+                justify-content: end;
+                alignt-items: center;
+                color: #FBF9F1;
+                width: 10%;
+                margin-right: 20px;
+            }
+        `;
+
+        const cssh1Titles = ` 
+            h1 {
+                position: relative;
+                color: #FBF9F1;
+            }
+        `;
+
+
+        const cssHeader = `
+            .headerContainer {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                height: 100px;
+                width: 100%;
+                position: sticky;
+                position: fixed;
+                top:0;
+                background-color: #92C7CF;
+            }
+        `;
+
+
+        const cssInputContainer = `
+            .inputContainer {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                height: 100px;
+                width: 55%;
+                position: sticky;
+                position:fixed;
+                bottom: 0;
+                background-color: #E5E1DA;
+                left: 50%;
+                transform: translateX(-50%);
+                border-top-left-radius: 20px;
+                border-top-right-radius: 20px;
             }
         `;
 
         const cssInputMessage = `
             .messageInput {
-                height: 40px;
-                width: 400px;
-                margin-bottom: 10px;
+                position: relative;
+                height: 50px;
+                width: 70%;
+                background-color: #E5E1DA;
+                border-right: none;
+                border-top-left-radius: 10px;
+                border-bottom-left-radius: 10px;
+                border: 5px solid #FBF9F1;
             }
         `;
 
         const cssSendButton = `
             .sendButton {
-                height: 40px;
-                width: 80px;
+                height: 50px;
+                min-width: 30px;
+                background-color: #92C7CF;
+                color: #FBF9F1;
+                border-left: none;
+                border-top-right-radius: 10px;
+                border-bottom-right-radius: 10px;
+                border: 5px solid #FBF9F1;
             }
         `;
+
+        const cssBody = `
+            body {
+                margin: 0;
+                background-color: #FBF9F1;
+            }
+        `;
+
 
         let styleNameInput = document.createElement('style');
         styleNameInput.textContent = cssInputName;
@@ -37,43 +119,105 @@
         let styleButtonSend = document.createElement('style');
         styleButtonSend.textContent = cssSendButton;
 
+        let headerStyle = document.createElement('style');
+        headerStyle.textContent = cssHeader;
+
+        let h1Style = document.createElement('style')
+        h1Style.textContent = cssh1Titles;
+
+        let inputStyle = document.createElement('style');
+        inputStyle.textContent = cssInputContainer;
+
+        let bodyStile = document.createElement('style');
+        bodyStile.textContent = cssBody;
+
+        let toggle = document.createElement('style');
+        toggle.textContent = cssToggle;
+
+        document.head.appendChild(h1Style);
         document.head.appendChild(styleNameInput);
         document.head.appendChild(stlyeMessageInput);
         document.head.appendChild(styleButtonSend);
+        document.head.appendChild(headerStyle);
+        document.head.appendChild(inputStyle);
+        document.head.appendChild(bodyStile);
+        document.head.appendChild(toggle);
+
+        let pageHeader = document.createElement('div');
+        pageHeader.id = "header";
+        pageHeader.className = "headerContainer";
+    
+        let webTitle = document.createElement('h1')
+        webTitle.id = "title";
+        webTitle.textContent = "Welcome to ARPANETOS chat!";
 
         // Create input for user name
         let userNameInput = document.createElement('input');
-        userNameInput.id = "name"
+        userNameInput.id = "name";
         userNameInput.className = "nameInput";
         userNameInput.type = "text";
-        userNameInput.value = "Write your user name";
+        userNameInput.placeholder = "Enter your name";
+
+        let darkModeContainer = document.createElement('div');
+        darkModeContainer.id = "darkModeContainer";
+        darkModeContainer.className = "toggle"
+        darkModeContainer.textContent = "Dark mode"
+
+        let darkModeCheckbox = document.createElement('input');
+        darkModeCheckbox.type = "checkbox";
 
         // Create input for message
         let messageInput = document.createElement('input');
-        messageInput.id = "message"
+        messageInput.id = "message";
         messageInput.className = "messageInput";
         messageInput.type = "text";
-        messageInput.value = "Write your message";
+        messageInput.placeholder = "Enter your message";
 
         let sendButton = document.createElement('button');
         sendButton.onclick = sendData;
         sendButton.className = "sendButton"
         sendButton.textContent = "Send";
-        
+
+        let inputContainer = document.createElement('div');
+        inputContainer.id = "inputCont";
+        inputContainer.className = "inputContainer"
 
         // Get the body element to append inputs
         let body = document.body;
 
         // Append inputs to the body
-        body.appendChild(userNameInput);
-        body.appendChild(messageInput);
-        body.appendChild(sendButton);
+        body.appendChild(pageHeader);
 
+        pageHeader.appendChild(userNameInput);
+        pageHeader.appendChild(webTitle);
+        pageHeader.appendChild(darkModeContainer);
+
+        darkModeContainer.appendChild(darkModeCheckbox);
+
+        inputContainer.appendChild(messageInput);
+        inputContainer.appendChild(sendButton);
+        body.appendChild(inputContainer);
+
+        // Create the toggle switch container
+  
         function sendData() {
             let name = document.getElementById('name').value;
             let message = document.getElementById('message').value;
             alert(`User Name: ${name} \nMessage:     ${message} `)
         } 
+
+        darkModeCheckbox.addEventListener('change', function() {
+            if (this.checked) {
+            // Dark mode activated
+            document.body.style.backgroundColor = "#333";
+            document.body.style.color = "#DFE6E9";
+            } else {
+            // Light mode activated
+            document.body.style.backgroundColor = "#DFE6E9";
+            document.body.style.color = "#333";
+            }
+        });
+        
     </script>
   </body>
 </html>
