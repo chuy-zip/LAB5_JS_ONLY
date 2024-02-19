@@ -64,7 +64,7 @@
                 justify-content: center;
                 align-items: center;
                 height: 100px;
-                width: 55%;
+                width: 70%;
                 position: sticky;
                 position:fixed;
                 bottom: 0;
@@ -205,6 +205,15 @@
             let message = document.getElementById('message').value;
             alert(`User Name: ${name} \nMessage:     ${message} `)
         } 
+
+                
+        messageInput.addEventListener('keypress', function(event) {
+            if (event.keyCode === 13) {
+                event.preventDefault();
+                sendData();
+            }
+        });
+
 
         darkModeCheckbox.addEventListener('change', function() {
             if (this.checked) {
