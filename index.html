@@ -87,6 +87,13 @@
                 border-bottom-left-radius: 10px;
                 border: 5px solid #FBF9F1;
             }
+            .placeholder-color::placeholder {
+                color: #636E72;
+            }
+
+            .dark-mode .placeholder-color::placeholder {
+                color: #FBF9F1;
+            }
         `;
 
         const cssSendButton = `
@@ -172,8 +179,11 @@
         messageInput.className = "messageInput";
         messageInput.type = "text";
         messageInput.placeholder = "Enter your message";
+        messageInput.classList.add('placeholder-color');
+
 
         let sendButton = document.createElement('button');
+        sendButton.id = "sendMsg";
         sendButton.onclick = sendData;
         sendButton.className = "sendButton"
         sendButton.textContent = "Send";
@@ -201,9 +211,16 @@
         // Create the toggle switch container
   
         function sendData() {
-            let name = document.getElementById('name').value;
-            let message = document.getElementById('message').value;
-            alert(`User Name: ${name} \nMessage:     ${message} `)
+            let name = document.getElementById('name').value.trim();
+            let message = document.getElementById('message').value.trim();
+
+            if (name !== "" && message !== ""){
+                alert(`User Name: ${name} \nMessage:     ${message} `)
+            }
+            else {
+                alert("Invalid operation, name and message can't be empty")
+            }
+            
         } 
 
                 
@@ -214,19 +231,59 @@
             }
         });
 
+        function initializeTheme() {
+            const savedTheme = localStorage.getItem('theme');
+
+            if (savedTheme === 'dark'){
+                darkModeCheckbox.checked = true;
+                applyDarkMode();
+            }
+            else{
+                darkModeCheckbox.checked = false;
+                applyLightMode();
+            }
+        }
+
+        window.addEventListener('load', initializeTheme);
 
         darkModeCheckbox.addEventListener('change', function() {
             if (this.checked) {
-            // Dark mode activated
-            document.body.style.backgroundColor = "#333";
-            document.body.style.color = "#DFE6E9";
+                applyDarkMode();
+                localStorage.setItem('theme', 'dark');
             } else {
-            // Light mode activated
-            document.body.style.backgroundColor = "#DFE6E9";
-            document.body.style.color = "#333";
+                applyLightMode();
+                localStorage.setItem('theme', 'light');
             }
         });
-        
+
+        function applyDarkMode() {
+            document.body.style.backgroundColor = "#152642";
+            document.getElementById('header').style.backgroundColor = "#081B33";
+            document.getElementById('name').style.backgroundColor = "#081B33";
+            document.getElementById('inputCont').style.backgroundColor = "#506680";
+            document.getElementById('message').style.backgroundColor = "#506680";
+            document.getElementById('message').style.borderColor = "#152642";
+            document.getElementById('message').style.color = "#FBF9F1";
+            document.getElementById('sendMsg').style.backgroundColor = "#081B33";
+            document.getElementById('sendMsg').style.borderColor = "#152642";
+            document.body.classList.add('dark-mode');
+            document.body.style.color = "#FBF9F1";
+        }
+
+        function applyLightMode() {
+            document.body.style.backgroundColor = "#FBF9F1";
+            document.getElementById('header').style.backgroundColor = "#92C7CF";
+            document.getElementById('name').style.backgroundColor = "#92C7CF";
+            document.getElementById('inputCont').style.backgroundColor = "#E5E1DA";
+            document.getElementById('message').style.backgroundColor = "#E5E1DA";
+            document.getElementById('message').style.borderColor = "#FBF9F1";
+            document.getElementById('message').style.color = "black";
+            document.getElementById('sendMsg').style.backgroundColor = "#92C7CF";
+            document.getElementById('sendMsg').style.borderColor = "#FBF9F1";
+            document.body.classList.remove('dark-mode');
+            document.body.style.color = "#636E72";
+        }   
+
     </script>
   </body>
 </html>
