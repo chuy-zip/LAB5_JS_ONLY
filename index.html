@@ -1,5 +1,8 @@
 <html>
   <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Arpanetos Chat</title>
   </head>
   <body>
     <script type="application/javascript">
@@ -76,12 +79,11 @@
             .messageCard {
                 background-color: #E5E1DA;
                 color: black;
-                min-width: 10%;
-                max-width: 50%;
+                min-width: 10px;
                 min-height: 25px;
                 margin-top: 40px;
                 border-radius: 10px;
-                padding: 10px;
+                padding: 15px;
             }
         `;
 
@@ -385,7 +387,7 @@
             messages.forEach((message) => {
                 let msgCard = document.createElement('div');
                 msgCard.className = "messageCard";
-                msgCard.textContent = `${message.username}: \n ${message.message}`;
+                msgCard.textContent = `${message.username}: ${message.message}`;
                 initializeTheme();
                 messagesContainer.appendChild(msgCard);
             });
