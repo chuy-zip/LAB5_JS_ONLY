@@ -38,8 +38,8 @@
             }
         `;
 
-        const cssh1Titles = ` 
-            h1 {
+        const cssh2Titles = ` 
+            h2 {
                 position: relative;
                 color: #FBF9F1;
             }
@@ -158,8 +158,8 @@
         let headerStyle = document.createElement('style');
         headerStyle.textContent = cssHeader;
 
-        let h1Style = document.createElement('style')
-        h1Style.textContent = cssh1Titles;
+        let h2Style = document.createElement('style')
+        h2Style.textContent = cssh2Titles;
 
         let inputStyle = document.createElement('style');
         inputStyle.textContent = cssInputContainer;
@@ -176,7 +176,7 @@
         let messageCard = document.createElement('style');
         messageCard.textContent = cssMessageCard;
 
-        document.head.appendChild(h1Style);
+        document.head.appendChild(h2Style);
         document.head.appendChild(styleNameInput);
         document.head.appendChild(stlyeMessageInput);
         document.head.appendChild(styleButtonSend);
@@ -191,16 +191,16 @@
         pageHeader.id = "header";
         pageHeader.className = "headerContainer";
     
-        let webTitle = document.createElement('h1')
+        let webTitle = document.createElement('h2')
         webTitle.id = "title";
-        webTitle.textContent = "Welcome to ARPANETOS chat!";
+        webTitle.textContent = "ARPANETOS chat!";
 
         // Create input for user name
         let userNameInput = document.createElement('input');
         userNameInput.id = "name";
         userNameInput.className = "nameInput";
         userNameInput.type = "text";
-        userNameInput.placeholder = "Enter your name";
+        userNameInput.placeholder = "Name";
 
         let darkModeContainer = document.createElement('div');
         darkModeContainer.id = "darkModeContainer";
